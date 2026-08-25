@@ -108,6 +108,89 @@ h1,h2,h3,p,dl,dd{margin:0}
 }
 .btn-reserve:hover{background:var(--color-primary-dark);color:#fff}
 
+/* ── Mobile header (shown only ≤767px; see media query below) ────────
+   Split fixed bar: left = surface + hamburger + "メニュー",
+   right = primary + fork icon + "ご予約". Logo sits in its own row,
+   independent from the split bar, per DESIGN.md §6. ────────────────── */
+.mobile-header{display:none}
+.mobile-header__brand{
+  display:flex;align-items:center;
+  height:40px;padding:0 20px;
+  background:var(--color-surface);
+  border-bottom:1px solid var(--color-border);
+}
+.mobile-header__brand-name{
+  font:600 15px/1 var(--font-mincho);
+  color:var(--color-primary-dark);
+  letter-spacing:.1em;
+}
+.mobile-header__bar{
+  display:grid;grid-template-columns:1fr 1fr;
+  height:56px;
+  border-bottom:1px solid var(--color-border);
+}
+.menu-toggle{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  height:100%;border:0;padding:0;
+  background:var(--color-surface);
+  color:var(--color-text);
+  font:400 13.5px/1 var(--font-mincho);letter-spacing:.1em;
+  -webkit-tap-highlight-color:transparent;
+}
+.menu-toggle__icon{display:flex;flex-direction:column;justify-content:space-between;width:20px;height:14px}
+.menu-toggle__icon span{display:block;height:2px;width:100%;background:var(--color-text);transition:transform .2s,opacity .2s}
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-reserve{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  height:100%;
+  background:var(--color-primary);
+  color:#fff;
+  font:500 13.5px/1 var(--font-mincho);letter-spacing:.1em;
+}
+.mobile-reserve__icon{color:#fff}
+
+/* ── Mobile off-canvas nav panel ──────────────────────────────────── */
+.mobile-nav{
+  display:none;
+  position:fixed;left:0;right:0;top:96px;
+  z-index:45;
+  flex-direction:column;
+  max-height:calc(100vh - 96px);
+  overflow-y:auto;
+  background:var(--color-surface);
+  border-bottom:1px solid var(--color-border);
+  padding:8px 20px 28px;
+}
+.mobile-nav:not([hidden]){display:flex}
+.mobile-nav a{
+  padding:16px 4px;
+  border-top:1px solid var(--color-border);
+  font:400 16px/1 var(--font-mincho);
+  color:var(--color-text);letter-spacing:.08em;
+}
+.mobile-nav a.is-active{color:var(--color-primary-dark)}
+.mobile-nav__tel{
+  display:flex;align-items:baseline;gap:10px;
+  margin-top:20px;padding:16px 22px !important;
+  border-top:0 !important;
+  border-radius:24px;
+  background:var(--color-primary);color:#fff !important;
+  font:500 15px/1 var(--font-mincho) !important;
+  justify-content:center;
+}
+.mobile-nav__tel span{font:400 15px/1 var(--font-garamond)}
+.mobile-nav-backdrop{
+  display:none;
+  position:fixed;inset:0;z-index:44;
+  background:rgba(35,31,27,.4);
+}
+body.nav-open .mobile-nav-backdrop{display:block}
+@media (prefers-reduced-motion: reduce){
+  .menu-toggle__icon span{transition:none}
+}
+
 /* ── Page header / sub-page hero ──────────────────────────────────── */
 .page-hero{
   position:relative;
@@ -302,6 +385,7 @@ h1,h2,h3,p,dl,dd{margin:0}
 
 /* ── Concept (Kodawari) ───────────────────────────────────────────── */
 .concept{display:grid;grid-template-columns:360px 1fr;gap:56px}
+.concept--home{grid-template-columns:280px 1fr;gap:48px}
 .concept__aside{display:flex;flex-direction:column;gap:18px}
 .concept__aside h2{font:500 28px/1.55 var(--font-mincho);color:var(--color-text);letter-spacing:.08em}
 .concept__divider{width:56px;height:2px;background:var(--color-primary)}
@@ -345,6 +429,7 @@ h1,h2,h3,p,dl,dd{margin:0}
 /* ── Access (Shop page) ───────────────────────────────────────────── */
 .access-grid{display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:start}
 .access-map{position:relative;height:440px;border-radius:12px;overflow:hidden}
+.access-map--home{height:452px}
 .access-detail{display:flex;flex-direction:column;gap:28px}
 .access-detail__item{display:flex;flex-direction:column;gap:14px}
 .access-detail__item h3{font:500 18px/1.6 var(--font-mincho);color:var(--color-text);letter-spacing:.08em}
@@ -489,9 +574,40 @@ h1,h2,h3,p,dl,dd{margin:0}
   .featured-article{grid-template-columns:1fr}
   .news-row{grid-template-columns:1fr;gap:8px;text-align:left}
 }
-@media (max-width:640px){
-  .main-nav{font-size:12.5px;gap:10px 16px}
+@media (max-width:767px){
+  /* Header: swap desktop bar for the fixed split mobile header */
+  .site-header{display:none}
+  .mobile-header{display:block;position:sticky;top:0;z-index:50}
+
+  .page-hero{height:240px}
+  .page-hero__content{padding:0 20px 28px;gap:10px}
+  .page-hero__title{font-size:clamp(26px,7vw,32px)}
+  .page-hero .img-slot{justify-content:flex-start;padding-top:22px}
+  .page-hero .img-slot__caption{font-size:11px}
+
   .menu-grid{grid-template-columns:1fr}
   .promo-grid{grid-template-columns:1fr}
+
+  /* Menu/promo cards: full-bleed top image, rounded top corners only,
+     content stacked below (DESIGN.md §6 カード型メニュー一覧) */
+  .menu-card{grid-template-columns:1fr;padding:0;overflow:hidden}
+  .menu-card__media{height:200px;border-radius:0}
+  .menu-card__body{padding:20px 20px 24px}
+  .promo-card__media{height:200px}
+
+  .featured-article{padding:0;overflow:hidden}
+  .featured-article__media{height:200px;border-radius:0}
+  .featured-article__body{padding:22px 20px 26px}
+
+  .access-map,.access-map--home,.owner-section__media,.alacarte__media{height:260px}
+  .care-card__media{height:220px}
+  .photo-tile{height:180px}
+
   .site-footer__top{gap:32px}
+  .site-footer__nav-group{gap:32px 40px}
+}
+
+@media (max-width:400px){
+  .home-hero__title{font-size:26px}
+  .contact-section h2{font-size:24px}
 }
