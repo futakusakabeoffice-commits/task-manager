@@ -271,6 +271,7 @@ body.nav-open .mobile-nav-backdrop{display:block}
 .home-hero__actions{display:flex;align-items:center;flex-wrap:wrap;gap:20px;padding-top:6px}
 .home-hero__hours{font:400 13px/1.8 var(--font-serif);color:var(--color-text-muted)}
 .home-hero__media{position:relative;min-height:320px}
+.home-hero__media img{object-position:62% center}
 .btn-pill{
   display:inline-flex;align-items:center;
   padding:14px 30px;border-radius:24px;
