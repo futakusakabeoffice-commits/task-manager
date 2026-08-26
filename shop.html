@@ -138,11 +138,13 @@
       </div>
       <div class="access-grid">
         <div class="access-map">
-          <div class="img-slot" role="img" aria-label="地図（Google Maps のスクリーンショット／埋め込み）">
-            <img src="images/access-map.png" alt="地図（Google Maps のスクリーンショット／埋め込み）" loading="lazy" onerror="this.remove()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            <span class="img-slot__caption">地図（Google Maps のスクリーンショット／埋め込み）</span>
-          </div>
+          <!-- サンプル地点（東京駅）を仮設定。実際の住所が決まり次第、q= の値を差し替えてください -->
+          <iframe
+            src="https://www.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%A7%85&output=embed"
+            title="店舗アクセスマップ（サンプル地点）"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
         <div class="access-detail">
           <div class="access-detail__item">

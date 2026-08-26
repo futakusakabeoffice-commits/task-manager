@@ -440,6 +440,7 @@ body.nav-open .mobile-nav-backdrop{display:block}
 /* ── Access (Shop page) ───────────────────────────────────────────── */
 .access-grid{display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:start}
 .access-map{position:relative;height:440px;border-radius:12px;overflow:hidden}
+.access-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .access-map--home{height:452px}
 .access-detail{display:flex;flex-direction:column;gap:28px}
 .access-detail__item{display:flex;flex-direction:column;gap:14px}
