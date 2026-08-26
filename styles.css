@@ -248,6 +248,8 @@ body.nav-open .mobile-nav-backdrop{display:block}
   grid-template-columns:1fr 1fr;
   align-items:center;
   min-height:560px;
+  max-width:1440px;
+  margin:0 auto;
 }
 .home-hero__content{
   padding:88px 56px 80px 32px;
