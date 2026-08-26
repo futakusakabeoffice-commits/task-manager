@@ -563,7 +563,6 @@ body.nav-open .mobile-nav-backdrop{display:block}
   .section,.contact-section,.section--plain{padding-left:20px;padding-right:20px}
   .section--band{padding-left:20px;padding-right:20px}
   .page-hero__content{padding:0 20px 40px}
-  .home-hero{grid-template-columns:1fr}
   .home-hero__content{padding:56px 20px 40px}
   .home-hero__media{height:320px}
   .menu-card{grid-template-columns:1fr}
@@ -585,6 +584,8 @@ body.nav-open .mobile-nav-backdrop{display:block}
   /* Header: swap desktop bar for the fixed split mobile header */
   .site-header{display:none}
   .mobile-header{display:block;position:sticky;top:0;z-index:50}
+
+  .home-hero{grid-template-columns:1fr}
 
   .page-hero{height:240px}
   .page-hero__content{padding:0 20px 28px;gap:10px}
