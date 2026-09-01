@@ -538,6 +538,20 @@ body.nav-open .mobile-nav-backdrop{display:block}
 .btn-call span{font:400 20px/1 var(--font-garamond)}
 .contact-section__hours{font:400 13px/1.8 var(--font-serif);color:var(--color-text-muted)}
 
+/* ── Plain page title (no photo hero — legal/simple pages) ─────────── */
+.page-intro{padding:64px 32px 0;max-width:1440px;margin:0 auto}
+.page-intro .eyebrow{display:block;margin-bottom:14px}
+.page-intro h1{font:500 clamp(28px,4vw,40px)/1.4 var(--font-mincho);color:var(--color-text);letter-spacing:.08em}
+
+/* ── Prose (long-form text pages) ────────────────────────────────────── */
+.prose{max-width:840px;display:flex;flex-direction:column;gap:20px}
+.prose p{font:400 16px/1.95 var(--font-serif);color:var(--color-text)}
+.prose h2{margin-top:16px;font:500 22px/1.5 var(--font-mincho);color:var(--color-text);letter-spacing:.06em}
+.prose ul{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:8px}
+.prose li{font:400 16px/1.9 var(--font-serif);color:var(--color-text)}
+.prose a{text-decoration:underline}
+.prose__updated{font:400 13px/1.8 var(--font-serif);color:var(--color-text-muted);margin-top:12px}
+
 /* ── Footer ───────────────────────────────────────────────────────── */
 .site-footer{
   position:relative;
@@ -598,6 +612,7 @@ body.nav-open .mobile-nav-backdrop{display:block}
 
   .page-hero{height:240px}
   .page-hero__content{padding:0 20px 28px;gap:10px}
+  .page-intro{padding:40px 20px 0}
   .page-hero__title{font-size:clamp(26px,7vw,32px)}
   .page-hero .img-slot{justify-content:flex-start;padding-top:22px}
   .page-hero .img-slot__caption{font-size:11px}
