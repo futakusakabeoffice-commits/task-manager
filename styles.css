@@ -562,8 +562,24 @@ body.nav-open .mobile-nav-backdrop{display:block}
   transition:background .15s;
 }
 .btn-call:hover{background:var(--color-primary-dark);color:#fff}
-.btn-call span{font:400 20px/1 var(--font-garamond)}
 .contact-section__hours{font:400 13px/1.8 var(--font-serif);color:var(--color-text-muted)}
+
+/* ── Tel reveal (click-to-show-number CTAs) ─────────────────────────── */
+.tel-reveal{display:inline-flex;flex-direction:column;align-items:flex-start;gap:14px}
+.contact-section .tel-reveal{align-items:center}
+.tel-reveal__trigger{border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tel-reveal__popover{display:none;flex-direction:column;align-items:center;gap:10px}
+.tel-reveal__popover:not([hidden]){display:flex}
+.tel-reveal__label{font:400 13px/1.6 var(--font-serif);color:var(--color-text-muted)}
+.tel-reveal__link{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 32px;border-radius:24px;
+  background:var(--color-primary);color:#fff;
+  font:500 18px/1 var(--font-mincho);letter-spacing:.08em;
+  transition:background .15s;
+}
+.tel-reveal__link:hover{background:var(--color-primary-dark);color:#fff}
+.tel-reveal__link span{font:400 18px/1 var(--font-garamond)}
 
 /* ── Plain page title (no photo hero — legal/simple pages) ─────────── */
 .page-intro{padding:64px 32px 0;max-width:1440px;margin:0 auto}

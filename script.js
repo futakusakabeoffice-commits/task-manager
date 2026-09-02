@@ -4,6 +4,23 @@
   var backdrop = document.querySelector('.mobile-nav-backdrop');
   var reserveBtn = document.querySelector('.mobile-reserve');
   var reservePopover = document.getElementById('mobile-reserve-popover');
+  var telReveals = Array.prototype.map.call(document.querySelectorAll('.tel-reveal'), function (wrap) {
+    return {
+      wrap: wrap,
+      trigger: wrap.querySelector('.tel-reveal__trigger'),
+      popover: wrap.querySelector('.tel-reveal__popover')
+    };
+  }).filter(function (item) {
+    return item.trigger && item.popover;
+  });
+
+  function closeAllTelReveals() {
+    telReveals.forEach(function (item) {
+      if (item.popover.hidden) return;
+      item.popover.hidden = true;
+      item.trigger.setAttribute('aria-expanded', 'false');
+    });
+  }
 
   function closeReserve() {
     if (!reservePopover || reservePopover.hidden) return;
@@ -14,6 +31,7 @@
   function openReserve() {
     if (!reservePopover) return;
     closeNav();
+    closeAllTelReveals();
     reservePopover.hidden = false;
     reserveBtn.setAttribute('aria-expanded', 'true');
   }
@@ -21,6 +39,7 @@
   function openNav() {
     if (!nav) return;
     closeReserve();
+    closeAllTelReveals();
     nav.hidden = false;
     toggle.setAttribute('aria-expanded', 'true');
     document.body.classList.add('nav-open');
@@ -68,15 +87,50 @@
     });
   }
 
+  telReveals.forEach(function (item) {
+    item.trigger.addEventListener('click', function (event) {
+      event.stopPropagation();
+      var wasHidden = item.popover.hidden;
+      closeNav();
+      closeReserve();
+      closeAllTelReveals();
+      if (wasHidden) {
+        item.popover.hidden = false;
+        item.trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  if (telReveals.length) {
+    document.addEventListener('click', function (event) {
+      telReveals.forEach(function (item) {
+        if (!item.popover.hidden && !item.wrap.contains(event.target)) {
+          item.popover.hidden = true;
+          item.trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
   document.addEventListener('keydown', function (event) {
     if (event.key !== 'Escape') return;
     if (nav && !nav.hidden) {
       closeNav();
       toggle.focus();
-    } else if (reservePopover && !reservePopover.hidden) {
+      return;
+    }
+    if (reservePopover && !reservePopover.hidden) {
       closeReserve();
       reserveBtn.focus();
+      return;
     }
+    telReveals.forEach(function (item) {
+      if (!item.popover.hidden) {
+        item.popover.hidden = true;
+        item.trigger.setAttribute('aria-expanded', 'false');
+        item.trigger.focus();
+      }
+    });
   });
 
   window.addEventListener('resize', function () {
