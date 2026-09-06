@@ -1,0 +1,14 @@
+{
+  "name": "定食屋 ひなた食堂",
+  "short_name": "ひなた食堂",
+  "description": "地元食材とだしにこだわった、家庭の味の定食屋。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F0E1",
+  "theme_color": "#E2592C",
+  "lang": "ja",
+  "icons": [
+    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

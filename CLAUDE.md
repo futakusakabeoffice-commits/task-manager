@@ -19,8 +19,15 @@ menu.html         メニュー（定食一覧／単品・小鉢）
 shop.html         店舗情報／アクセス
 news.html         お知らせ一覧
 privacy-policy.html  プライバシーポリシー（フッターの法務リンクからのみ遷移。グローバルナビには含まない）
+404.html          カスタム404ページ（<meta name="robots" content="noindex,follow">、他ページと同じヘッダー・フッター）
 styles.css        全ページ共通スタイル（CSSカスタムプロパティでトークン管理）
 script.js         モバイルナビ（ハンバーガーメニュー）の開閉制御。全ページで <script defer> 読み込み
+robots.txt        クローラー制御（全許可＋sitemap.xmlへの参照）
+sitemap.xml       全公開ページのURL一覧
+site.webmanifest  PWA向けマニフェスト（アイコン・テーマカラー等）
+favicon.ico / images/favicon-16.png / favicon-32.png / apple-touch-icon.png / icon-192.png / icon-512.png
+                  favicon一式。ブランドカラー(--color-primary)＋「食」の文字を組んだシンプルなマーク（画像素材なしで生成したプレースホルダー）
+images/og-*.jpg   OGP画像（1200×630、各ページのヒーロー写真から自動生成）
 docs/DESIGN.md    デザインシステム仕様書（色・タイポグラフィ・余白・コンポーネント・レスポンシブ・a11y）
 docs/CONTENTS.md  テキスト・構成の仕様書（各セクションの見出し・本文・メタ情報）
 ```
@@ -50,15 +57,23 @@ docs/CONTENTS.md  テキスト・構成の仕様書（各セクションの見�
 - グローバルナビ: HOME / こだわり / メニュー / 店舗情報 / お知らせ / アクセス
 - 文言・価格・店舗情報（住所・営業時間・定休日・席数など）を変更する場合は、まず `docs/CONTENTS.md` を更新してから HTML に反映する（HTML への直接の場当たり的な変更は避ける）。
 - 画像は `.img-slot` によるプレースホルダー枠に `<img>` を重ねる形式（`images/` フォルダに規定のファイル名で置くと自動反映、無ければプレースホルダー表示のまま。詳細は `images/README.md`）。現状すべての枠に写真が差し込み済み（地図のみ `.img-slot` ではなく Google Maps の `<iframe>` 埋め込み）。alt テキストは `docs/CONTENTS.md` に記載の想定内容を踏襲している。撮影内容を差し替える際も同じ alt を踏襲する。
+- 画像配信は `.webp`（PNGから変換、パフォーマンス対策）。写真を差し替える際は `images/README.md` の指示どおり PNG/JPEG を置けば、Claude が `.webp` 変換とHTML参照の更新まで行う。ページ最初のビュー内の画像（ヒーロー写真）は `loading="lazy"` を付けず `fetchpriority="high"` にする（LCP対策）。それ以外の画像は `loading="lazy"` のまま。
 - 電話予約のみを想定（Web 予約フォームなし）。特定商取引法表記は省略（実店舗のみの飲食店のため）。プライバシーポリシーのみ最低限記載する方針。
+
+## SEO / リリース関連（要点）
+
+- 各ページの `<head>` に canonical / OGP（og:image含む）/ twitter:card / favicon一式 / JSON-LD（`Restaurant` + `BreadcrumbList`）を実装済み。ドメインは仮の `https://hinata-shokudo.example.com` をプレースホルダーとして使用している（`robots.txt` の Sitemap 行、`sitemap.xml` の全URL、各ページの canonical/og:url/og:image も同様）。**本番ドメインが決まり次第、これらすべての箇所を一括置換すること。**
+- JSON-LD の `Restaurant` スキーマは住所・電話番号にダミー値（`00-0000-0000` 等）を使用している。実店舗情報が決まったら他の箇所（`docs/CONTENTS.md`・各HTML本文）と合わせて更新する。
 
 ## 既知の未実装項目
 
-- 住所・電話番号（`00-0000-0000` 等）はダミーのまま。実店舗情報が決まり次第、`docs/CONTENTS.md` → 各 HTML の順に更新する。
+- 住所・電話番号（`00-0000-0000` 等）はダミーのまま。実店舗情報が決まり次第、`docs/CONTENTS.md` → 各 HTML の順に更新する（JSON-LD構造化データ内の値も含む）。
 - HOME・店舗情報ページの Google Maps 埋め込みは仮の地点（東京駅）。手順は `images/README.md`「アクセス地図について」を参照。
 - メディア掲載セクション（HOME `#media`）のリンク先・食べログ URL 等はダミー。
 - メニューページの「単品・小鉢」、お知らせページの記事一覧・ページネーション（2・3ページ目）はサンプル内容（`note` に明記済み）。実際の記事ページは未作成。
 - `privacy-policy.html` の本文はサンプルの雛形（ページ内に注記あり）。実際の運用に合わせて内容を確認し、必要に応じて専門家に相談のうえ修正する。
+- GA4 / Search Console / SSL・リダイレクト設定 / Cookie同意バナーは未実装（本番ドメインでのホスティング後に設定する項目のため）。
+- ブランドカラー（`--color-primary` の朱色 `#E2592C` を白文字ボタン・リンク色・アイコン風ラベルなどに使う一部の組み合わせ）が WCAG の本文コントラスト比 4.5:1 をわずかに下回る箇所がある。既存デザインの根幹に関わる配色のため、変更する場合はユーザーの承認を得てから対応する。
 
 ## 開発時の注意
 
